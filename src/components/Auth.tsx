@@ -74,7 +74,7 @@ const Auth: React.FC = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [avatarImage, setAvatarImage] = useState<File | null>(null);
-  const [isLogion, setIsLogion] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
   const onChangeImageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files![0]) {
@@ -119,7 +119,7 @@ const Auth: React.FC = () => {
     );
   };
   const signInGoogle = async () => {
-    await auth.signInWithPopup(provider).catch((error) => alert(error.massage));
+    await auth.signInWithPopup(provider).catch((error) => alert(error.message));
   };
   return (
     <Grid container component="main" className={classes.root}>
@@ -131,10 +131,10 @@ const Auth: React.FC = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {isLogion ? "Logion" : "Register"}
+            {isLogin ? "Login" : "Register"}
           </Typography>
           <form className={classes.form} noValidate>
-            {!isLogion && (
+          {!isLogin && (
               <>
                 <TextField
                   variant="outlined"
@@ -205,7 +205,7 @@ const Auth: React.FC = () => {
             />
             <Button
               disabled={
-                isLogion
+                isLogin
                   ? !email || password.length < 6
                   : !username || !email || password.length < 6 || !avatarImage
               }
@@ -215,24 +215,24 @@ const Auth: React.FC = () => {
               className={classes.submit}
               startIcon={<EmailIcon />}
               onClick={
-                isLogion
+                isLogin
                   ? async () => {
                       try {
                         await signInEmail();
                       } catch (err: any) {
-                        alert(err.massage);
+                        alert(err.message);
                       }
                     }
                   : async () => {
                       try {
                         await signUpEmail();
                       } catch (err: any) {
-                        alert(err.massage);
+                        alert(err.message);
                       }
                     }
               }
             >
-              {isLogion ? "Logion" : "Register"}
+              {isLogin ? "Logion" : "Register"}
             </Button>
 
             <Grid container>
@@ -242,9 +242,9 @@ const Auth: React.FC = () => {
               <Grid item>
                 <span
                   className={styles.login_toggleMode}
-                  onClick={() => setIsLogion(!isLogion)}
+                  onClick={() => setIsLogin(!isLogin)}
                 >
-                  {isLogion ? "Create new account ?" : "Back to login"}
+                  {isLogin ? "Create new account ?" : "Back to login"}
                 </span>
               </Grid>
             </Grid>
